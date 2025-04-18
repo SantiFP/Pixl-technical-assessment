@@ -1,16 +1,17 @@
 "use client";
 
 import React, { useState } from "react";
+import { useRouter } from "next/navigation"; // Importa useRouter
 
 const LoginForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const router = useRouter(); // Usa el hook useRouter
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Aquí va tu lógica de autenticación
     if (!email || !password) {
       setError("Both email and password are required");
       return;
@@ -27,8 +28,13 @@ const LoginForm = () => {
 
       if (response.ok) {
         const data = await response.json();
-        console.log("Login successful:", data);
-        // Redirigir o almacenar el token JWT
+
+        if (data.token) {
+          localStorage.setItem("token", data.token);  
+          console.log("Token saved to localStorage:", data.token);
+
+          router.push("/protectedPage"); 
+        }
       } else {
         setError("Invalid email or password");
       }
@@ -44,7 +50,7 @@ const LoginForm = () => {
         <div>
           <label htmlFor="email">Email</label>
           <input
-            type="email"
+            type="text"
             id="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}

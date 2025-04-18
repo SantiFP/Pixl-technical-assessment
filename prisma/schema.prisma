@@ -18,6 +18,11 @@ model User {
   id        Int      @id @default(autoincrement())
   email     String   @unique
   password  String
-  role      String   @default("user") // Esto lo usarás para definir si es Admin o User
+  role      String   
   createdAt DateTime @default(now())
+}
+
+enum Role {
+  ADMIN
+  REGULAR
 }

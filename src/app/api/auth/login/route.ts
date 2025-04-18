@@ -28,8 +28,8 @@ export async function POST(request: Request) {
 
     // Crear el JWT
     const token = jwt.sign(
-      { userId: user.id, email: user.email },
-      process.env.JWT_SECRET as string, // Asegúrate de tener esto en tu .env
+      { userId: user.id, email: user.email, role:user.role },
+      process.env.JWT_SECRET as string, 
       { expiresIn: '1h' }
     );
 

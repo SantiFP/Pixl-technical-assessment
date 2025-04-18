@@ -1,19 +1,17 @@
-// src/app/api/auth/register/route.ts
 
 import { NextResponse } from 'next/server';
-import { prisma } from '@/lib/prisma'; // Ajusta la ruta según tu estructura
+import { prisma } from '@/lib/prisma'; 
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
 export async function POST(request: Request) {
-  const { email, password } = await request.json();
+  const { email, password, role } = await request.json();
 
   if (!email || !password) {
     return NextResponse.json({ error: 'Email and password are required' }, { status: 400 });
   }
 
   try {
-    // Verificar si el usuario ya existe
     const existingUser = await prisma.user.findUnique({
       where: { email },
     });
@@ -22,21 +20,19 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'User already exists' }, { status: 400 });
     }
 
-    // Encriptar la contraseña
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    // Crear el nuevo usuario en la base de datos
     const newUser = await prisma.user.create({
       data: {
         email,
         password: hashedPassword,
+        role: role, 
       },
     });
 
-    // Crear el JWT
     const token = jwt.sign(
       { userId: newUser.id, email: newUser.email },
-      process.env.JWT_SECRET as string, // Asegúrate de tener esto en tu .env
+      process.env.JWT_SECRET as string, 
       { expiresIn: '1h' }
     );
 
