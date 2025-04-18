@@ -1,4 +1,4 @@
-// app/protected/page.tsx
+// app/protected/page.tsx//mnmn
 'use client';
 
 import { useEffect, useState } from 'react';
