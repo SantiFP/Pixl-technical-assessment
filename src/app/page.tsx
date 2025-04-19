@@ -7,10 +7,10 @@ const Home = () => {
     <div>
       <h1>Bienvenido a la Página de Inicio</h1>
       <p>
-        <Link href="/login">Ir a Login</Link>
+        <Link href="/auth/login">Ir a Login</Link>
       </p>
       <p>
-        <Link href="/register">Registrarse</Link>
+        <Link href="/auth/register">Registrarse</Link>
       </p>
     </div>
   );

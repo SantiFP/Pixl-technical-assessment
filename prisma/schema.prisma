@@ -22,6 +22,17 @@ model User {
   createdAt DateTime @default(now())
 }
 
+model Event {
+  id          Int      @id @default(autoincrement())
+  title       String
+  description String
+  date        DateTime
+  price       Float
+  images      Json?  
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
 enum Role {
   ADMIN
   REGULAR
