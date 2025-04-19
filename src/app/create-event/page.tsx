@@ -1,9 +1,9 @@
-import CreateEvent from "@/components/Events/CreateEvent";
+import CreateAndEditEvent from "@/components/Events/CreateAndEditEvent";
 
 export default () => {
   return (
     <>
-      <CreateEvent />
+      <CreateAndEditEvent />
     </>
   );
 };

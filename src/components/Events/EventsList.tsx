@@ -2,10 +2,10 @@
 
 import { useEffect, useState } from "react";
 import EventCard from "./EventCard";
-import { EventData } from "@/types/event";
+import { useEventStore } from "@/store/eventStore"; 
 
 const EventsList = ({ role }: { role: boolean }) => {
-  const [events, setEvents] = useState<EventData[]>([]);
+  const { events, setEvents } = useEventStore(); 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -16,7 +16,7 @@ const EventsList = ({ role }: { role: boolean }) => {
         if (!res.ok) throw new Error("Error fetching events");
 
         const data = await res.json();
-        setEvents(data);
+        setEvents(data); 
       } catch (err: any) {
         setError(err.message);
       } finally {
@@ -25,7 +25,7 @@ const EventsList = ({ role }: { role: boolean }) => {
     };
 
     fetchEvents();
-  }, []);
+  }, [setEvents]);
 
   if (loading) return <p>Loading events...</p>;
   if (error) return <p>Error: {error}</p>;

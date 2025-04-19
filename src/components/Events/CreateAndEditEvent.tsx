@@ -1,6 +1,6 @@
 'use client';
 
-import { useEventStore } from "@/stores/eventStore";
+import { useEventStore } from "@/store/eventStore";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
@@ -29,6 +29,7 @@ const CreateEventPage = () => {
     e.preventDefault();
 
     const data = {
+      id: currentEvent?.id,
       title,
       description,
       date,
@@ -38,14 +39,12 @@ const CreateEventPage = () => {
 
     try {
       if (currentEvent) {
-        // Editar evento
-        await fetch(`/api/events/${currentEvent.id}`, {
-          method: "PUT",
+        await fetch(`/api/events/${currentEvent.id}`, {  
+          method: 'PUT',
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(data),
+          body: JSON.stringify(data), 
         });
       } else {
-        // Crear evento nuevo
         await fetch("/api/events", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
