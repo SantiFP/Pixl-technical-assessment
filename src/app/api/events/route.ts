@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 
 export async function POST(request: Request) {
-  const { title, description, date, price, images } = await request.json();
+  const { title, description, date, price, image } = await request.json();
 
   if (!title || !description || !date || !price) {
     return NextResponse.json(
@@ -27,7 +27,7 @@ export async function POST(request: Request) {
         description,
         date: parsedDate,
         price,
-        images: images || [], 
+        image, 
       },
     });
 

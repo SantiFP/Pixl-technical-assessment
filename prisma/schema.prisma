@@ -28,7 +28,7 @@ model Event {
   description String
   date        DateTime
   price       Float
-  images      Json?  
+  image       String?  
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }

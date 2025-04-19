@@ -1,9 +1,9 @@
-import CreateAndEditEvent from "@/components/Events/CreateAndEditEvent";
+import EventForm from "@/components/Events/EventForm";
 
 export default () => {
   return (
     <>
-      <CreateAndEditEvent />
+      <EventForm />
     </>
   );
 };

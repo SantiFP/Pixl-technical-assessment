@@ -4,5 +4,5 @@ export interface EventData {
   description: string;
   date: string;
   price: number;
-  images: string[];
+  image: string;
 }
