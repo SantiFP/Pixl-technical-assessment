@@ -3,16 +3,18 @@
 import { useEventStore } from "@/store/eventStore";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import useAuth from "@/hooks/useAuth";
 
 const EventForm = () => {
   const router = useRouter();
   const { currentEvent, clearCurrentEvent } = useEventStore();
+  const { loading, error, isAdmin } = useAuth();
 
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-  const [date, setDate] = useState('');
-  const [price, setPrice] = useState('');
-  const [image, setImage] = useState<string>('');
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [date, setDate] = useState("");
+  const [price, setPrice] = useState("");
+  const [image, setImage] = useState<string>("");
   const [isLoading, setIsLoading] = useState(false); // nuevo estado para loading
 
   useEffect(() => {
@@ -21,9 +23,17 @@ const EventForm = () => {
       setDescription(currentEvent.description);
       setDate(currentEvent.date.slice(0, 10));
       setPrice(String(currentEvent.price));
-      setImage(currentEvent.image || '');
+      setImage(currentEvent.image || "");
     }
   }, [currentEvent]);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error || !isAdmin) {
+    return <div>Restricted access</div>;
+  }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -41,7 +51,7 @@ const EventForm = () => {
     try {
       if (currentEvent) {
         await fetch(`/api/events/${currentEvent.id}`, {
-          method: 'PUT',
+          method: "PUT",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(data),
         });
@@ -116,8 +126,12 @@ const EventForm = () => {
         disabled={isLoading}
       >
         {isLoading
-          ? (currentEvent ? "Actualizando..." : "Creando...")
-          : (currentEvent ? "Actualizar" : "Crear")}
+          ? currentEvent
+            ? "Actualizando..."
+            : "Creando..."
+          : currentEvent
+          ? "Actualizar"
+          : "Crear"}
       </button>
     </form>
   );

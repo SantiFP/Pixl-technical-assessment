@@ -1,7 +1,7 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 
 const useAuth = () => {
-  const roleRef = useRef<string | null>(null);
+  const [role, setRole] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -9,7 +9,7 @@ const useAuth = () => {
     const fetchData = async () => {
       try {
         const token = localStorage.getItem("token");
-        if (!token) throw new Error("No token found");
+        if (!token) throw new Error("Restricced access");
 
         const res = await fetch("/api/auth/middleware", {
           headers: {
@@ -20,7 +20,7 @@ const useAuth = () => {
         if (res.status === 401) throw new Error("Access restricted");
 
         const result = await res.json();
-        roleRef.current = result.role;
+        setRole(result.role);
       } catch (err: any) {
         setError(err.message);
       } finally {
@@ -31,13 +31,14 @@ const useAuth = () => {
     fetchData();
   }, []);
 
-  const isAdmin = roleRef.current === "admin"; 
+  const isAdmin = role === "admin";
 
   return {
     loading,
     error,
-    isAdmin, 
+    isAdmin,
   };
 };
 
 export default useAuth;
+
