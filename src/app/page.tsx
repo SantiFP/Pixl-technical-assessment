@@ -2,7 +2,7 @@
 
 import Link from 'next/link'; 
 
-const Home = () => {
+const LandingPage = () => {
   return (
     <div>
       <h1>Bienvenido a la Página de Inicio</h1>
@@ -16,4 +16,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default LandingPage;

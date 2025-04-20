@@ -20,13 +20,11 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'User not found' }, { status: 404 });
     }
 
-    // Verifica la contraseña
     const passwordIsValid = await bcrypt.compare(password, user.password);
     if (!passwordIsValid) {
       return NextResponse.json({ error: 'Invalid password' }, { status: 401 });
     }
 
-    // Crear el JWT
     const token = jwt.sign(
       { userId: user.id, email: user.email, role:user.role },
       process.env.JWT_SECRET as string, 

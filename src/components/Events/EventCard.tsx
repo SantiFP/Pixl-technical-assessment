@@ -27,7 +27,7 @@ const EventCard = ({ event, role }: { event: EventData; role: boolean }) => {
 
   const handleEdit = () => {
     setCurrentEvent(event);
-    router.push("/create-event");
+    router.push("/event-form");
   };
 
   const showDeleteAlert = () => {

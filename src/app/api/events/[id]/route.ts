@@ -1,12 +1,11 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
-
 export async function PUT(req: Request) {
   try {
     const url = new URL(req.url);
     const id = url.pathname.split("/").pop();
 
-    const { title, description, date, price, images } = await req.json();
+    const { title, description, date, price, image } = await req.json();
 
     if (!id) {
       return NextResponse.json(
@@ -15,14 +14,23 @@ export async function PUT(req: Request) {
       );
     }
 
+    const parsedDate = new Date(`${date}T12:00:00Z`);
+
+    if (isNaN(parsedDate.getTime())) {
+      return NextResponse.json(
+        { message: "Formato de fecha inválido" },
+        { status: 400 }
+      );
+    }
+
     const updatedEvent = await prisma.event.update({
-      where: { id: Number(id) }, // Usamos el id de la URL
+      where: { id: Number(id) },
       data: {
         title,
         description,
-        date: new Date(date),
+        date: parsedDate,
         price,
-        images,
+        image,
       },
     });
 
@@ -35,6 +43,7 @@ export async function PUT(req: Request) {
     );
   }
 }
+
 
 export async function DELETE(req: Request) {
   try {

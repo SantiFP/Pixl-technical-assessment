@@ -12,7 +12,8 @@ export async function POST(request: Request) {
   }
 
   try {
-    const parsedDate = new Date(date);
+    const parsedDate = new Date(`${date}T12:00:00Z`);
+
     if (isNaN(parsedDate.getTime())) {
       return NextResponse.json(
         { error: "Invalid date format." },
@@ -20,14 +21,13 @@ export async function POST(request: Request) {
       );
     }
 
-    // Creamos el evento en la base de datos
     const event = await prisma.event.create({
       data: {
         title,
         description,
         date: parsedDate,
         price,
-        image, 
+        image,
       },
     });
 
@@ -40,6 +40,7 @@ export async function POST(request: Request) {
     );
   }
 }
+
 
 
 export async function GET() {

@@ -15,7 +15,7 @@ const EventForm = () => {
   const [date, setDate] = useState("");
   const [price, setPrice] = useState("");
   const [image, setImage] = useState<string>("");
-  const [isLoading, setIsLoading] = useState(false); // nuevo estado para loading
+  const [isLoading, setIsLoading] = useState(false); 
 
   useEffect(() => {
     if (currentEvent) {
@@ -37,7 +37,7 @@ const EventForm = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsLoading(true); // empieza el loading
+    setIsLoading(true); 
 
     const data = {
       id: currentEvent?.id,
@@ -68,7 +68,7 @@ const EventForm = () => {
     } catch (error) {
       console.error("Error al guardar el evento:", error);
     } finally {
-      setIsLoading(false); // termina el loading
+      setIsLoading(false); 
     }
   };
 

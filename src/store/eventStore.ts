@@ -1,14 +1,5 @@
-import { create } from 'zustand';
-import { EventData } from '@/types/event';
-
-type EventStore = {
-  currentEvent: EventData | null;
-  events: EventData[];
-  setCurrentEvent: (event: EventData) => void;
-  clearCurrentEvent: () => void;
-  setEvents: (events: EventData[]) => void;
-  removeEvent: (id: number) => void; // <- Renombrado (opcional)
-};
+import { create } from "zustand";
+import { EventStore } from "@/types/event";
 
 export const useEventStore = create<EventStore>((set) => ({
   currentEvent: null,
@@ -24,4 +15,3 @@ export const useEventStore = create<EventStore>((set) => ({
       events: state.events.filter((event) => event.id !== id),
     })),
 }));
-

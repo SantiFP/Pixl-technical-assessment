@@ -9,11 +9,8 @@ const Home = () => {
   const router = useRouter();
 
   const handleLogout = () => {
-    // Borrar el almacenamiento local o cualquier otro dato relevante
-    localStorage.removeItem("token"); // o sessionStorage.removeItem("token");
-
-    // Redirigir al inicio
-    router.push("/"); // Asumiendo que tu inicio es '/'
+    localStorage.removeItem("token"); 
+    router.push("/"); 
   };
 
   if (loading) {
@@ -30,7 +27,7 @@ const Home = () => {
         <h1 className="text-2xl font-bold">Home</h1>
         {isAdmin && (
           <button
-            onClick={() => router.push("/create-event")}
+            onClick={() => router.push("/event-form")}
             className="px-4 py-2 bg-green-600 text-white rounded"
           >
             Crear Evento
@@ -39,7 +36,6 @@ const Home = () => {
 
         <EventsList role={isAdmin} />
 
-        {/* Botón de Cerrar sesión */}
         <button
           onClick={handleLogout}
           className="mt-4 px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 transition-colors"
