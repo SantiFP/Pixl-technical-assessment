@@ -1,0 +1,15 @@
+.cardContainer{
+    @apply bg-white p-6 rounded-lg shadow-lg transition-all hover:scale-105 hover:shadow-2xl border-l-4 border-blue-500 mb-6 mr-5 sm:w-[300px] lg:w-[400px]
+}
+
+.cardImage{
+    @apply w-full h-40 object-cover mt-4 rounded-lg shadow-md transition-transform duration-300 transform hover:scale-105
+}
+
+.button{
+    @apply px-6 py-3 text-white rounded-full transition-colors 
+}
+
+.buyButton {
+    @apply mt-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-full shadow-lg transition duration-300 ease-in-out disabled:opacity-50
+}

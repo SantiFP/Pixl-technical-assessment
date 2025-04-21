@@ -5,12 +5,14 @@ import { useEventStore } from "@/store/eventStore";
 import { EventData } from "@/types/event";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import "./EventCard.css";
 
 const EventCard = ({ event, role }: { event: EventData; role: boolean }) => {
   const { setCurrentEvent, removeEvent } = useEventStore();
   const router = useRouter();
   const [loading, setLoading] = useState(false);
 
+  // Function to handle event deletion
   const handleDelete = async () => {
     try {
       await fetch(`/api/events/${event.id}`, {
@@ -18,26 +20,28 @@ const EventCard = ({ event, role }: { event: EventData; role: boolean }) => {
       });
 
       removeEvent(event.id);
-      Swal.fire("Eliminado", "El evento ha sido eliminado.", "success");
+      Swal.fire("Deleted", "The event has been deleted.", "success");
     } catch (err) {
-      console.error("Error al eliminar:", err);
-      Swal.fire("Error", "Hubo un problema al eliminar el evento.", "error");
+      console.error("Error deleting:", err);
+      Swal.fire("Error", "There was a problem deleting the event.", "error");
     }
   };
 
+   // Function to handle event edit
   const handleEdit = () => {
     setCurrentEvent(event);
     router.push("/event-form");
   };
 
+  // Show confirmation alert before deleting the event
   const showDeleteAlert = () => {
     Swal.fire({
-      title: "¿Estás seguro?",
-      text: "¡Este evento será eliminado permanentemente!",
+      title: "Are you sure?",
+      text: "This event will be permanently deleted!",
       icon: "warning",
       showCancelButton: true,
-      confirmButtonText: "Eliminar",
-      cancelButtonText: "Cancelar",
+      confirmButtonText: "Delete",
+      cancelButtonText: "Cancel",
     }).then((result) => {
       if (result.isConfirmed) {
         handleDelete();
@@ -45,6 +49,7 @@ const EventCard = ({ event, role }: { event: EventData; role: boolean }) => {
     });
   };
 
+   // Function to handle the ticket purchase process
   const handleBuy = async () => {
     setLoading(true);
     try {
@@ -63,58 +68,53 @@ const EventCard = ({ event, role }: { event: EventData; role: boolean }) => {
       if (data.init_point) {
         window.location.href = data.init_point;
       } else {
-        Swal.fire("Error", "No se pudo iniciar el proceso de pago.", "error");
+        Swal.fire("Error", "Could not start the payment process.", "error");
       }
     } catch (err) {
-      console.error("Error al comprar:", err);
-      Swal.fire("Error", "Hubo un problema al iniciar el pago.", "error");
+      console.error("Error buying:", err);
+      Swal.fire("Error", "There was a problem starting the payment.", "error");
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div
-      key={event.id}
-      className="border rounded-lg p-4 shadow-lg hover:shadow-xl transition-shadow duration-300"
-    >
-      <h2 className="text-xl font-semibold">{event.title}</h2>
-      <p>{event.description}</p>
-      <p className="text-sm text-gray-500">
-        {new Date(event.date).toLocaleDateString()}
+    <div key={event.id} className="cardContainer">
+      <h2 className="text-2xl font-semibold text-gray-800">{event.title}</h2>
+      <p className="text-gray-600 mt-2">{event.description}</p>
+      <p className="text-sm text-gray-500 mt-2">
+        {new Date(event.date).toLocaleDateString()}  {/* Format the event date */}
       </p>
-      <p className="text-sm text-gray-700">${event.price}</p>
+      <p className="text-lg text-gray-700 mt-1">${event.price}</p>
 
+      {/* Display event image if available */}
       {event.image && (
-        <img
-          src={event.image}
-          alt="Event"
-          className="w-full h-36 object-cover mt-2 rounded-lg shadow-md transition-transform duration-300 transform hover:scale-105"
-        />
+        <img src={event.image} alt="Event" className="cardImage" />
       )}
 
+      {/* Show edit and delete buttons for admin role, or buy button for user role */}
       {role ? (
-        <div className="flex gap-2 mt-4">
+        <div className="flex gap-4 mt-4">
           <button
             onClick={handleEdit}
-            className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors"
+            className="button bg-blue-600 hover:bg-blue-700 "
           >
-            Editar
+            Edit
           </button>
           <button
             onClick={showDeleteAlert}
-            className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 transition-colors"
+            className="button bg-red-600 hover:bg-red-700 "
           >
-            Eliminar
+            Delete
           </button>
         </div>
       ) : (
         <button
           onClick={handleBuy}
           disabled={loading}
-          className="mt-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-xl shadow-md transition duration-300 ease-in-out disabled:opacity-50"
+          className="buyButton"
         >
-          {loading ? "Procesando..." : "Comprar"}
+          {loading ? "Processing..." : "Buy ticket"}  {/* Display processing text during purchase */}
         </button>
       )}
     </div>

@@ -1,3 +1,5 @@
+// Interface for a single event's data structure
+
 export interface EventData {
   id: number;
   title: string;
@@ -7,6 +9,7 @@ export interface EventData {
   image: string;
 }
 
+// Interface for the Zustand event store
 export interface EventStore {
   currentEvent: EventData | null;
   events: EventData[];

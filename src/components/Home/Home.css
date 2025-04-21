@@ -1,0 +1,15 @@
+.nav{
+    @apply bg-white shadow-md px-6 py-4 flex justify-between items-center
+}
+
+.logoutButton{
+    @apply bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 transition
+}
+
+.contentDiv{
+    @apply flex flex-col md:flex-row md:items-center md:justify-between mb-6 gap-4
+}
+
+.createButton{
+    @apply bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition
+}

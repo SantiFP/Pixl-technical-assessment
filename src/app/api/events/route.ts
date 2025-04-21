@@ -1,9 +1,11 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 
+// Create a new event
 export async function POST(request: Request) {
   const { title, description, date, price, image } = await request.json();
 
+  // Validate required fields
   if (!title || !description || !date || !price) {
     return NextResponse.json(
       { error: "Title, description, date, and price are required." },
@@ -12,6 +14,7 @@ export async function POST(request: Request) {
   }
 
   try {
+    // Parse the provided date and validate the format
     const parsedDate = new Date(`${date}T12:00:00Z`);
 
     if (isNaN(parsedDate.getTime())) {
@@ -20,6 +23,8 @@ export async function POST(request: Request) {
         { status: 400 }
       );
     }
+
+    // Create a new event in the database
 
     const event = await prisma.event.create({
       data: {
@@ -31,6 +36,7 @@ export async function POST(request: Request) {
       },
     });
 
+    // Respond with the newly created event
     return NextResponse.json(event, { status: 201 });
   } catch (error) {
     console.error("Error creating event:", error);
@@ -41,12 +47,14 @@ export async function POST(request: Request) {
   }
 }
 
-
+// Fetch all events
 
 export async function GET() {
   try {
+    // Retrieve all events from the database
     const events = await prisma.event.findMany();
 
+    // Return the list of events
     return NextResponse.json(events);
   } catch (error) {
     console.error("Error fetching events:", error);
@@ -55,5 +63,4 @@ export async function GET() {
       { status: 500 }
     );
   }
-};
-
+}

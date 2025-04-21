@@ -1,5 +1,7 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+
+// Update an existing event by ID
 export async function PUT(req: Request) {
   try {
     const url = new URL(req.url);
@@ -7,6 +9,7 @@ export async function PUT(req: Request) {
 
     const { title, description, date, price, image } = await req.json();
 
+    // Ensure event ID is provided
     if (!id) {
       return NextResponse.json(
         { message: "ID del evento requerido" },
@@ -14,6 +17,7 @@ export async function PUT(req: Request) {
       );
     }
 
+    // Parse and validate date
     const parsedDate = new Date(`${date}T12:00:00Z`);
 
     if (isNaN(parsedDate.getTime())) {
@@ -23,6 +27,7 @@ export async function PUT(req: Request) {
       );
     }
 
+    // Update event in the database
     const updatedEvent = await prisma.event.update({
       where: { id: Number(id) },
       data: {
@@ -44,12 +49,13 @@ export async function PUT(req: Request) {
   }
 }
 
-
+// Delete an event by ID
 export async function DELETE(req: Request) {
   try {
     const url = new URL(req.url);
     const id = url.pathname.split("/").pop();
 
+    // Ensure event ID is provided
     if (!id) {
       return NextResponse.json(
         { message: "ID del evento requerido" },
@@ -57,6 +63,7 @@ export async function DELETE(req: Request) {
       );
     }
 
+    // Delete event from the database
     await prisma.event.delete({
       where: { id: Number(id) },
     });

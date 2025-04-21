@@ -1,11 +1,11 @@
-import RegisterForm from '../../../components/Auth/RegisterForm';
+// Renders the RegisterForm component
 
+import RegisterForm from "../../../components/Auth/RegisterForm";
 
 export default () => {
   return (
-    <div>
-      <h1>Register</h1>
+    <>
       <RegisterForm />
-    </div>
+    </>
   );
-}
+};

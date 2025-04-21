@@ -1,36 +1,117 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Pixl Technical Test
+This project is a web application for event management, with user authentication and payment integration through Mercado Pago. Admin users can create, edit, and delete events, while regular users can participate in events by making a payment.
 
-## Getting Started
+## Technologies Used
 
-First, run the development server:
+Frontend:
 
-```bash
+React
+
+Next.js
+
+TailwindCSS
+
+Zustand (for state management)
+
+SweetAlert2 (for notifications)
+
+## Backend / Database:
+
+Prisma (ORM for interacting with the database)
+
+Mercado Pago (for event payment integration)
+
+bcryptjs and jsonwebtoken (for authentication and JWT token management)
+
+## Other:
+
+PostgreSQL (relational database)
+
+## Requirements
+
+Node.js: Ensure you have Node.js (v16 or higher) installed.
+
+PostgreSQL Database: PostgreSQL is used to store data. You can install it locally or use a cloud service.
+
+## Initial Setup
+
+### Clone the repository:
+
+git clone https://github.com/SantiFP/Pixl-technical-assessment
+cd pixl-test
+
+### Install dependencies:
+
+Run the following command to install the dependencies:
+
+npm install
+
+### Configure the .env file:
+
+Create a .env file at the root of the project with the following content:
+
+DATABASE_URL="postgresql://postgres:S.f031097@localhost:5432/mydb"
+JWT_SECRET="SecureJwtKeyForApp12345!"
+MERCADO_PAGO_TOKEN='APP_USR-6702006718764553-042004-447e35c954b0cac9b439be6cb30d5264-2400812394'
+
+DATABASE_URL: The URL of your PostgreSQL database. Change postgres and mydb to match your configuration.
+
+JWT_SECRET: A secret key used for generating JWT tokens.
+
+MERCADO_PAGO_TOKEN: Your Mercado Pago access token for integration with Mercado Pago.
+
+## Buyer Credentials for Testing:
+
+To complete the payment flow and test, please use the following credentials to log in to Mercado Pago:
+
+Buyer User: TESTUSER2036808165
+
+Buyer Password: BtjEdO24KF
+
+## Generate the database with Prisma:
+
+If you haven’t set up Prisma yet, run:
+
+npx prisma migrate dev
+
+## Running the Project
+
+Start the development server:
+
+To start the application in development mode, run:
+
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+The server will be available at http://localhost:3000.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Database Development:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+If you make changes to the Prisma schema, you can run the migrations with:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+npx prisma migrate dev
 
-## Learn More
+## Features
 
-To learn more about Next.js, take a look at the following resources:
+Authentication: Users can log in with their email and password. During the authentication process, users can choose their role:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Admin: Can create, edit, and delete events.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Regular User: Can view available events and participate in them by making a payment.
 
-## Deploy on Vercel
+Event Management: Admins can manage events with attributes like title, description, date, price, and an optional image.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Payment Integration: Regular users can make payments via Mercado Pago to participate in events. To complete the payment, you must log in with the provided Mercado Pago credentials for testing.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## How to Test the Project
+
+To test the project:
+
+Access the application: Go to http://localhost:3000 and create an account or log in.
+
+Choose the role: During login, you can choose your role (Admin or Regular User).
+
+Log in as Admin: If you select the Admin role, you will be able to manage events.
+
+Participate in an event: Users can make a payment to participate in events by integrating with Mercado Pago. To complete the payment, use the buyer credentials provided earlier (TESTUSER2036808165 and BtjEdO24KF).
+
+Authors
+Santiago Fuentes - Developer
