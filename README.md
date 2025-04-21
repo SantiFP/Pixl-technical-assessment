@@ -1,4 +1,4 @@
-# Pixl Technical Test
+# Pixl Technical Test Assessment
 This project is a web application for event management, with user authentication and payment integration through Mercado Pago. Admin users can create, edit, and delete events, while regular users can participate in events by making a payment.
 
 ## Technologies Used
@@ -9,6 +9,8 @@ React
 
 Next.js
 
+Typescript
+
 TailwindCSS
 
 Zustand (for state management)
@@ -16,6 +18,8 @@ Zustand (for state management)
 SweetAlert2 (for notifications)
 
 ## Backend / Database:
+
+Typescript
 
 Prisma (ORM for interacting with the database)
 
@@ -51,14 +55,16 @@ npm install
 Create a .env file at the root of the project with the following content:
 
 DATABASE_URL="postgresql://postgres:S.f031097@localhost:5432/mydb"
+
 JWT_SECRET="SecureJwtKeyForApp12345!"
+
 MERCADO_PAGO_TOKEN='APP_USR-6702006718764553-042004-447e35c954b0cac9b439be6cb30d5264-2400812394'
 
-DATABASE_URL: The URL of your PostgreSQL database. Change postgres and mydb to match your configuration.
+DATABASE_URL: The URL of your PostgreSQL database. Change postgres and mydb to match your configuration. If your PostgreSQL runs on a different port or host, update accordingly.
 
 JWT_SECRET: A secret key used for generating JWT tokens.
 
-MERCADO_PAGO_TOKEN: Your Mercado Pago access token for integration with Mercado Pago.
+MERCADO_PAGO_TOKEN: Use the provided Mercado Pago access token for integration with Mercado Pago. 
 
 ## Buyer Credentials for Testing:
 
@@ -67,6 +73,8 @@ To complete the payment flow and test, please use the following credentials to l
 Buyer User: TESTUSER2036808165
 
 Buyer Password: BtjEdO24KF
+
+These credentials are for testing purposes and are required to complete the Mercado Pago payment flow.
 
 ## Generate the database with Prisma:
 
@@ -91,7 +99,7 @@ npx prisma migrate dev
 
 ## Features
 
-Authentication: Users can log in with their email and password. During the authentication process, users can choose their role:
+Authentication: Users can register with their email and password. During the registration process, users can choose their role.
 
 Admin: Can create, edit, and delete events.
 
@@ -99,19 +107,20 @@ Regular User: Can view available events and participate in them by making a paym
 
 Event Management: Admins can manage events with attributes like title, description, date, price, and an optional image.
 
-Payment Integration: Regular users can make payments via Mercado Pago to participate in events. To complete the payment, you must log in with the provided Mercado Pago credentials for testing.
+Payment Integration: Regular users can make payments via Mercado Pago to participate in events. To complete the payment, you must log in with the buyer credentials provided earlier (TESTUSER2036808165 and BtjEdO24KF).
 
 ## How to Test the Project
 
-To test the project:
+Access the application: Go to http://localhost:3000.
 
-Access the application: Go to http://localhost:3000 and create an account or log in.
+Register an account: Create an account and choose your role (Admin or Regular User) during the registration process.
 
-Choose the role: During login, you can choose your role (Admin or Regular User).
+Log in: Once registered, log in with your credentials.
 
-Log in as Admin: If you select the Admin role, you will be able to manage events.
+If you choose the Admin role, you will be able to manage events.
 
-Participate in an event: Users can make a payment to participate in events by integrating with Mercado Pago. To complete the payment, use the buyer credentials provided earlier (TESTUSER2036808165 and BtjEdO24KF).
+Participate in an event: Regular users can make a payment to participate in events by integrating with Mercado Pago. To complete the payment, use the buyer credentials provided earlier (TESTUSER2036808165 and BtjEdO24KF).
+
 
 Authors
 Santiago Fuentes - Developer
