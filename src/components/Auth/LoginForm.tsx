@@ -92,7 +92,7 @@ const LoginForm = () => {
           {/* Display error if there's any issue with login */}
           {error && <p className="text-red-500 text-sm">{error}</p>}
           <div className="pt-4">
-            <button type="submit" className="button">
+            <button type="submit" className="authButton">
               Login
             </button>
           </div>

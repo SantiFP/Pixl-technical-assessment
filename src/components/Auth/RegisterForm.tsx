@@ -142,7 +142,7 @@ const RegisterForm = () => {
           )}
 
           <div className="pt-4">
-            <button type="submit" className="button">
+            <button type="submit" className="authButton">
               Register
             </button>
           </div>

@@ -115,6 +115,8 @@ Access the application: Go to http://localhost:3000.
 
 Register an account: Create an account and choose your role (Admin or Regular User) during the registration process.
 
+⚠️ Note: You must first create an Admin user to be able to create events and use the app properly.
+
 Log in: Once registered, log in with your credentials.
 
 If you choose the Admin role, you will be able to manage events.

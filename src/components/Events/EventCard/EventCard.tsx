@@ -27,7 +27,7 @@ const EventCard = ({ event, role }: { event: EventData; role: boolean }) => {
     }
   };
 
-   // Function to handle event edit
+  // Function to handle event edit
   const handleEdit = () => {
     setCurrentEvent(event);
     router.push("/event-form");
@@ -49,7 +49,7 @@ const EventCard = ({ event, role }: { event: EventData; role: boolean }) => {
     });
   };
 
-   // Function to handle the ticket purchase process
+  // Function to handle the ticket purchase process
   const handleBuy = async () => {
     setLoading(true);
     try {
@@ -83,7 +83,8 @@ const EventCard = ({ event, role }: { event: EventData; role: boolean }) => {
       <h2 className="text-2xl font-semibold text-gray-800">{event.title}</h2>
       <p className="text-gray-600 mt-2">{event.description}</p>
       <p className="text-sm text-gray-500 mt-2">
-        {new Date(event.date).toLocaleDateString()}  {/* Format the event date */}
+        {new Date(event.date).toLocaleDateString()}{" "}
+        {/* Format the event date */}
       </p>
       <p className="text-lg text-gray-700 mt-1">${event.price}</p>
 
@@ -97,24 +98,21 @@ const EventCard = ({ event, role }: { event: EventData; role: boolean }) => {
         <div className="flex gap-4 mt-4">
           <button
             onClick={handleEdit}
-            className="button bg-blue-600 hover:bg-blue-700 "
+            className="cardButton bg-blue-600 hover:bg-blue-700 "
           >
             Edit
           </button>
           <button
             onClick={showDeleteAlert}
-            className="button bg-red-600 hover:bg-red-700 "
+            className="cardButton bg-red-600 hover:bg-red-700 "
           >
             Delete
           </button>
         </div>
       ) : (
-        <button
-          onClick={handleBuy}
-          disabled={loading}
-          className="buyButton"
-        >
-          {loading ? "Processing..." : "Buy ticket"}  {/* Display processing text during purchase */}
+        <button onClick={handleBuy} disabled={loading} className="buyButton bg-blue-600 hover:bg-blue-700 ">
+          {loading ? "Processing..." : "Buy ticket"}{" "}
+          {/* Display processing text during purchase */}
         </button>
       )}
     </div>
