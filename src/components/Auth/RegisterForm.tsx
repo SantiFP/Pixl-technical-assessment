@@ -82,7 +82,7 @@ const RegisterForm = () => {
             <label className="label">Email</label>
             <input
               type="email"
-              className="input"
+              className="authInput"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
@@ -94,7 +94,7 @@ const RegisterForm = () => {
             <label className="label">Password</label>
             <input
               type="password"
-              className={`input ${
+              className={`authInput ${
                 passwordError ? "border-red-500" : "border-gray-300"
               } `}
               value={password}
@@ -111,7 +111,7 @@ const RegisterForm = () => {
             <label className="label">Confirm Password</label>
             <input
               type="password"
-              className={`input ${
+              className={`authInput ${
                 confirmError ? "border-red-500" : "border-gray-300"
               } `}
               value={confirmPassword}
@@ -127,7 +127,7 @@ const RegisterForm = () => {
           <div>
             <label className="label">Role</label>
             <select
-              className="input"
+              className="authInput"
               value={role}
               onChange={(e) => setRole(e.target.value)}
             >

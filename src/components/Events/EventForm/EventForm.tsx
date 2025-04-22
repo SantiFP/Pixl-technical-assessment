@@ -104,7 +104,7 @@ const EventForm = () => {
             type="text"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
-            className="input"
+            className="eventForminput"
             required
           />
         </div>
@@ -127,7 +127,7 @@ const EventForm = () => {
             type="date"
             value={date}
             onChange={(e) => setDate(e.target.value)}
-            className="input"
+            className="eventForminput"
             required
           />
         </div>
@@ -138,7 +138,7 @@ const EventForm = () => {
             type="number"
             value={price}
             onChange={(e) => setPrice(e.target.value)}
-            className="input"
+            className="eventForminput"
             required
           />
         </div>
@@ -149,7 +149,7 @@ const EventForm = () => {
             type="text"
             value={image}
             onChange={(e) => setImage(e.target.value)}
-            className="input"
+            className="eventForminput"
           />
         </div>
       
